@@ -1,3 +1,4 @@
+--create books table
 CREATE TABLE Books (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -7,6 +8,7 @@ CREATE TABLE Books (
     status ENUM('Available', 'Borrowed') DEFAULT 'Available'
 );
 
+--create members table
 CREATE TABLE Members (
     member_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -14,7 +16,7 @@ CREATE TABLE Members (
     phone VARCHAR(20) UNIQUE,
     address TEXT
 );
-
+--create librarians table
 CREATE TABLE Librarians (
     librarian_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -22,6 +24,7 @@ CREATE TABLE Librarians (
     phone VARCHAR(20) UNIQUE
 );
 
+--create borrowed_books table
 CREATE TABLE Borrowed_Books (
     borrow_id INT AUTO_INCREMENT PRIMARY KEY,
     book_id INT,
@@ -32,7 +35,7 @@ CREATE TABLE Borrowed_Books (
     FOREIGN KEY (member_id) REFERENCES Members(member_id) ON DELETE CASCADE
 );
 
-
+--insert values in books table
 INSERT INTO Books (title, author, genre, published_year, status) 
 VALUES
 ('The Great Gatsby', 'F. Scott Fitzgerald', 'Fiction', 1925, 'Available'),
@@ -40,6 +43,7 @@ VALUES
 ('Moby Dick', 'Herman Melville', 'Adventure', 2002, 'Available'),
 ('To Kill a Mockingbird', 'Harper Lee', 'Fiction', 1960, 'Available');
 
+--insert values in members table
 INSERT INTO Members (name, email, phone, address) 
 VALUES
 ('John Doe', 'john.doe@example.com', '123-456-7890', '123 Main St, New York'),
@@ -47,6 +51,7 @@ VALUES
 ('Alice Brown', 'alice.brown@example.com', '555-555-5555', '789 Oak St, Texas'),
 ('Bob White', 'bob.white@example.com', '444-444-4444', '101 Pine St, Florida');
 
+--insert values into librarians table
 INSERT INTO Librarians (name, email, phone) 
 VALUES
 ('Sarah Miller', 'sarah.miller@example.com', '123-987-6543'),
@@ -54,6 +59,7 @@ VALUES
 ('Emma Wilson', 'emma.wilson@example.com', '333-444-5555'),
 ('Michael Davis', 'michael.davis@example.com', '666-777-8888');
 
+--insert values into borrowed_books table
 INSERT INTO Borrowed_Books (book_id, member_id, borrow_date, return_date) 
 VALUES
 (5, 1, '2025-03-16', NULL),
@@ -61,16 +67,23 @@ VALUES
 (7, 3, '2025-03-12', NULL),
 (8, 4, '2025-03-10', '2025-03-20');
 
+
+--query for showing all available books
 SELECT * FROM Books
 WHERE status = 'Available';
 
+
+--query for add new book record into books table
 INSERT INTO Books (title, author, genre, published_year, status) 
 VALUES ('The Catcher in the Rye', 'J.D. Salinger', 'Fiction', 1951, 'Available');
 
+--query for update books status
 UPDATE Books
 SET status = 'Borrowed'
 WHERE book_id = 9; 
 
+
+--query for delete a members
 DELETE FROM Members
 WHERE member_id = 1; 
 
